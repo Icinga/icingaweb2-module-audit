@@ -4,3 +4,4 @@
 /** @var $this \Icinga\Application\Modules\Module */
 
 $this->provideHook('audit', 'AuditLog');
+$this->provideHook('audit', 'AuditStream');
