@@ -1,0 +1,4 @@
+Module: audit
+Version: 1.0.0
+Description: Audit Module
+ The Audit module provides support to log and view activities to audit.
