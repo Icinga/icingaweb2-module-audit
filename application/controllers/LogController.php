@@ -17,21 +17,30 @@ class LogController extends Controller
             $this->httpNotFound('Page not found');
         }
 
+        $this->getTabs()->add('audit/log', [
+            'url'   => 'audit/log',
+            'title' => $this->translate('Audit Log')
+        ])->activate('audit/log');
+
+        $file = $this->Config()->get('log', 'path', '/var/log/icingaweb2/audit.log');
+
+        if (! @file_exists($file)) {
+            $this->render('log-empty');
+
+            return;
+        }
+
         $resource = new FileReader(new ConfigObject(array(
-            'filename'  => $this->Config()->get('log', 'path', '/var/log/icingaweb2/audit.log'),
+            'filename'  => $file,
             'fields'    => '/(?<!.)(?<datetime>[0-9]{4}(?:-[0-9]{2}){2}'    // date
                 . 'T[0-9]{2}(?::[0-9]{2}){2}(?:[\+\-][0-9]{2}:[0-9]{2})?)'  // time
                 . ' - (?<type>[A-Za-z]+)'                                   // type
                 . ' - (?<message>.*)(?!.)/msS'                              // message
         )));
+
         $this->view->logData = $resource->select()->order('DESC');
 
         $this->setupLimitControl();
         $this->setupPaginationControl($this->view->logData);
-
-        $this->getTabs()->add('audit/log', [
-            'url'   => 'audit/log',
-            'title' => $this->translate('Audit Log')
-        ])->activate('audit/log');
     }
 }
