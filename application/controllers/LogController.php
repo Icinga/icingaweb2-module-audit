@@ -18,9 +18,10 @@ class LogController extends Controller
         }
 
         $this->getTabs()->add('audit/log', [
-            'url'   => 'audit/log',
-            'title' => $this->translate('Audit Log')
-        ])->activate('audit/log');
+            'active' => true,
+            'label'  => $this->translate('Audit Log'),
+            'url'    => 'audit/log',
+        ]);
 
         $file = $this->Config()->get('log', 'path', '/var/log/icingaweb2/audit.log');
 
