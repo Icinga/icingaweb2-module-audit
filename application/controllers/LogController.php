@@ -31,13 +31,13 @@ class LogController extends Controller
             return;
         }
 
-        $resource = new FileReader(new ConfigObject(array(
+        $resource = new FileReader(new ConfigObject([
             'filename'  => $file,
             'fields'    => '/(?<!.)(?<datetime>[0-9]{4}(?:-[0-9]{2}){2}'    // date
                 . 'T[0-9]{2}(?::[0-9]{2}){2}(?:[\+\-][0-9]{2}:[0-9]{2})?)'  // time
                 . ' - (?<type>[A-Za-z]+)'                                   // type
                 . ' - (?<message>.*)(?!.)/msS'                              // message
-        )));
+        ]));
 
         $this->view->logData = $resource->select()->order('DESC');
 
