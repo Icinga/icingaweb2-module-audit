@@ -10,25 +10,21 @@ use Icinga\Util\File;
 
 class AuditStream extends AuditHook
 {
-    public function logMessage($type, $message, array $data = null)
+    public function logMessage($time, $identity, $type, $message, array $data = null)
     {
-        if ($data === null) {
-            $data = [];
-        }
-
-        if (! isset($data['activity_time'])) {
-            $data['activity_time'] = time();
-        }
-        if (! isset($data['activity'])) {
-            $data['activity'] = $type;
-        }
-        if (! isset($data['message'])) {
-            $data['message'] = $message;
+        $activityData = [
+            'activity_time' => $time,
+            'activity'      => $type,
+            'message'       => $message,
+            'identity'      => $identity
+        ];
+        if (! empty($data)) {
+            $activityData['data'] = $data;
         }
 
         $logConfig = Config::module('audit')->getSection('stream');
         if ($logConfig->format === 'json') {
-            $json = json_encode($data, JSON_FORCE_OBJECT);
+            $json = json_encode($activityData, JSON_FORCE_OBJECT);
             if ($json === false) {
                 throw new InvalidArgumentException('Failed to encode message data to JSON: ' . json_last_error_msg());
             }

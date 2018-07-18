@@ -35,6 +35,7 @@ class LogController extends Controller
             'filename'  => $file,
             'fields'    => '/(?<!.)(?<datetime>[0-9]{4}(?:-[0-9]{2}){2}'    // date
                 . 'T[0-9]{2}(?::[0-9]{2}){2}(?:[\+\-][0-9]{2}:[0-9]{2})?)'  // time
+                . ' - (?<identity>.*)'                                      // identity
                 . ' - (?<type>[A-Za-z]+)'                                   // type
                 . ' - (?<message>.*)(?!.)/msS'                              // message
         ]));

@@ -10,12 +10,12 @@ use Icinga\Util\File;
 
 class AuditLog extends AuditHook
 {
-    public function logMessage($type, $message, array $data = null)
+    public function logMessage($time, $identity, $type, $message, array $data = null)
     {
         $logConfig = Config::module('audit')->getSection('log');
         if ($logConfig->type === 'file') {
             $file = new File($logConfig->get('path', '/var/log/icingaweb2/audit.log'), 'a');
-            $file->fwrite(date('c') . ' - ' . $type . ' - ' . $message . PHP_EOL);
+            $file->fwrite(date('c', $time) . ' - ' . $identity . ' - ' . $type . ' - ' . $message . PHP_EOL);
             $file->fflush();
         } elseif ($logConfig->type === 'syslog') {
             openlog(
@@ -23,7 +23,8 @@ class AuditLog extends AuditHook
                 LOG_PID,
                 $this->resolveSyslogFacility($logConfig->get('facility', 'auth'))
             );
-            syslog(LOG_INFO, "<$type> $message");
+            $date = date('c', $time);
+            syslog(LOG_INFO, "[$date] <$identity> <$type> $message");
         }
     }
 
