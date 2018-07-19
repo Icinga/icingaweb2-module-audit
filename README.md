@@ -75,10 +75,13 @@ These objects have the following properties:
     A unix timestamp specifying when the activity occurred.
 * `activity`  
     An arbitrary identifier specifying the type of activity.
+* `identity`  
+    An arbitrary name identifying the responsible subject.
 * `message`  
     A human readable message. This is the same that appears in the standard log.
+* `data` *(may be absent)*  
+    An arbitrary number of additional properties dependent on the type of activity.
 
-Additionally these objects may contain an arbitrary number of additional properties dependent on the type of activity.
 Please see the documentation of the type of activity for more details. ([Icinga Web 2 activities](https://www.icinga.com/docs/icingaweb2/latest/doc/15-Auditing/))
 
 An example for *Filebeat* how this log may be consumed can be found [here](https://www.elastic.co/blog/structured-logging-filebeat).
