@@ -33,11 +33,13 @@ class LogController extends Controller
 
         $resource = new FileReader(new ConfigObject([
             'filename'  => $file,
-            'fields'    => '/(?<!.)(?<datetime>[0-9]{4}(?:-[0-9]{2}){2}'    // date
+            'fields'    => '/(?<!.)' // ^ can't handle multilines, don't ask *me* why this works
+                . '(?<datetime>[0-9]{4}(?:-[0-9]{2}){2}'                    // date
                 . 'T[0-9]{2}(?::[0-9]{2}){2}(?:[\+\-][0-9]{2}:[0-9]{2})?)'  // time
-                . ' - (?<identity>.*)'                                      // identity
-                . ' - (?<type>[A-Za-z]+)'                                   // type
-                . ' - (?<message>.*)(?!.)/msS'                              // message
+                . ' - (?<identity>.+)'                                      // identity
+                . ' - (?<type>.+)'                                          // type
+                . ' - (?<message>.+)'                                       // message
+                . '(?!.)/msSU' // $ can't handle multilines, don't ...
         ]));
 
         $this->view->logData = $resource->select()->order('DESC');
