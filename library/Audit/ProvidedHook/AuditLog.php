@@ -15,8 +15,9 @@ class AuditLog extends AuditHook
     {
         $logConfig = Config::module('audit')->getSection('log');
         if ($logConfig->type === 'file') {
+            $remoteip = (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
             $file = new File($logConfig->get('path', '/var/log/icingaweb2/audit.log'), 'a');
-            $file->fwrite(date('c', $time) . ' - ' . $identity . ' - ' . $type . ' - ' . $message . PHP_EOL);
+            $file->fwrite(date('c', $time) . ' - ' . $remoteip . ' - ' . $identity . ' - ' . $type . ' - ' . $message . PHP_EOL);
             $file->fflush();
         } elseif ($logConfig->type === 'syslog') {
             openlog(

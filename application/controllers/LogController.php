@@ -37,6 +37,7 @@ class LogController extends Controller
             'fields'    => '/(?<!.)' // ^ can't handle multilines, don't ask *me* why this works
                 . '(?<datetime>[0-9]{4}(?:-[0-9]{2}){2}'                    // date
                 . 'T[0-9]{2}(?::[0-9]{2}){2}(?:[\+\-][0-9]{2}:[0-9]{2})?)'  // time
+                . ' - (?<remoteip>.+)'                                      // remoteip
                 . ' - (?<identity>.+)'                                      // identity
                 . ' - (?<type>.+)'                                          // type
                 . ' - (?<message>.+)'                                       // message
