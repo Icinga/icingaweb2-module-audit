@@ -1,4 +1,5 @@
 <?php
+
 /* Icinga Web 2 | (c) 2018 Icinga Development Team | GPLv2+ */
 
 namespace Icinga\Module\Audit\ProvidedHook;
@@ -39,8 +40,7 @@ class AuditLog extends AuditHook
      */
     protected function resolveSyslogFacility($name)
     {
-        switch ($name)
-        {
+        switch ($name) {
             case 'auth':
                 return LOG_AUTH;
             case 'authpriv':
