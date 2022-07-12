@@ -13,7 +13,7 @@ $this->providePermission('audit/log', $this->translate('Allow access to the audi
 
 try {
     if ($this->getConfig()->get('log', 'type') === 'file') {
-        $section = $this->menuSection(N_('System'));
+        $section = $this->menuSection(N_('Reporting'));
         $section->add(N_('Audit Log'), [
             'permission'    => 'audit/log',
             'url'           => 'audit/log',
