@@ -133,7 +133,7 @@ class LogController extends Controller
         ])->extend(new OutputFormat())->extend(new DashboardAction())->extend(new MenuAction());
 
         $this->view->logData = $this->auditResource->select()->order('DESC');
-        
+
         $this->setupLimitControl();
         $this->setupPaginationControl($this->view->logData);
     }
