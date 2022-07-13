@@ -15,7 +15,6 @@ use Icinga\Web\Widget\Tabextension\OutputFormat;
 
 class LogController extends Controller
 {
-
     protected $auditResource = null;
     protected $csvDelimiter = ';';
     protected $csvEnclosure = '"';
@@ -93,7 +92,6 @@ class LogController extends Controller
                     ->appendBody(
                         Json::sanitize(
                             $this->auditToArray()
-
                         )
                     )
                     ->sendResponse();
@@ -132,10 +130,10 @@ class LogController extends Controller
             'active' => true,
             'label' => $this->translate('Audit Log'),
             'url' => 'audit/log',
-        ])->extend(new OutputFormat())->extend(new DashboardAction())->extend(new MenuAction());;
+        ])->extend(new OutputFormat())->extend(new DashboardAction())->extend(new MenuAction());
 
         $this->view->logData = $this->auditResource->select()->order('DESC');
-
+        
         $this->setupLimitControl();
         $this->setupPaginationControl($this->view->logData);
     }
