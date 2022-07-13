@@ -63,7 +63,7 @@ The configuration view in the frontend is located here: `Configuration -> Module
 
 > **Note**
 >
-> When logging to a file and with the proper permission, this can be viewed in the frontend under `System -> Audit Log`
+> When logging to a file and with the proper permission, this can be viewed in the frontend under `Reporting -> Audit Log`
 
 ### JSON Log
 
