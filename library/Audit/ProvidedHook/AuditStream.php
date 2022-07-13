@@ -17,7 +17,8 @@ class AuditStream extends AuditHook
             'activity_time' => $time,
             'activity'      => $type,
             'message'       => $message,
-            'identity'      => $identity
+            'identity'      => $identity,
+            'remoteip'      => $remoteip
         ];
         if (! empty($data)) {
             $activityData['data'] = $data;
