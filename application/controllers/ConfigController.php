@@ -9,7 +9,7 @@ use Icinga\Module\Audit\Forms\Config\AuditLogConfigForm;
 
 class ConfigController extends Controller
 {
-    public function indexAction()
+    public function indexAction(): void
     {
         $form = new AuditLogConfigForm();
         $form->setIniConfig($this->Config());

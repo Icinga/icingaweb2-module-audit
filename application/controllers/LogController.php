@@ -10,7 +10,7 @@ use Icinga\Web\Controller;
 
 class LogController extends Controller
 {
-    public function indexAction()
+    public function indexAction(): void
     {
         $this->assertPermission('audit/log');
 
