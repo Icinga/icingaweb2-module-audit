@@ -8,7 +8,7 @@ use Icinga\Forms\ConfigForm;
 
 class AuditLogConfigForm extends ConfigForm
 {
-    public function createElements(array $formData)
+    public function createElements(array $formData): void
     {
         $this->addElement(
             'select',

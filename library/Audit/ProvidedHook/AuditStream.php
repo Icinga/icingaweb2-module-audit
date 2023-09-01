@@ -11,7 +11,7 @@ use Icinga\Util\File;
 
 class AuditStream extends AuditHook
 {
-    public function logMessage($time, $identity, $type, $message, array $data = null)
+    public function logMessage($time, $identity, $type, $message, array $data = null): void
     {
         $activityData = [
             'activity_time' => $time,
