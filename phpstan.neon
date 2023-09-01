@@ -1,0 +1,17 @@
+parameters:
+    level: max
+
+    checkFunctionNameCase: true
+    checkInternalClassCaseSensitivity: true
+    treatPhpDocTypesAsCertain: false
+
+    paths:
+        - application
+        - library
+
+    scanDirectories:
+        - vendor
+
+    universalObjectCratesClasses:
+        - Icinga\Web\View
+        - Icinga\Data\ConfigObject
