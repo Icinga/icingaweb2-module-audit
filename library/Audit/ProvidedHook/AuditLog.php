@@ -11,7 +11,7 @@ use Icinga\Util\File;
 
 class AuditLog extends AuditHook
 {
-    public function logMessage($time, $identity, $type, $message, array $data = null)
+    public function logMessage($time, $identity, $type, $message, array $data = null): void
     {
         $logConfig = Config::module('audit')->getSection('log');
         if ($logConfig->type === 'file') {
@@ -38,7 +38,7 @@ class AuditLog extends AuditHook
      *
      * @throws  InvalidArgumentException    In case of an unknown name
      */
-    protected function resolveSyslogFacility($name)
+    protected function resolveSyslogFacility(string $name): int
     {
         switch ($name) {
             case 'auth':
