@@ -89,5 +89,14 @@ class AuditLogConfigForm extends ConfigForm
                 ]
             );
         }
+        $this->addElement(
+            'checkbox',
+            'iplogging',
+            [
+                'autosubmit'        => true,
+                'label'             => $this->translate('IP logging'),
+                'description'       => $this->translate('Log remote IPs into the audit log'),
+            ]
+        );
     }
 }
