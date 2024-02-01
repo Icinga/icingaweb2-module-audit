@@ -19,9 +19,11 @@
                     <br>
                     <?= $this->escape($value->type) ?>
                 </td>
+                <?php if (Config::module('audit')->getSection('log');->iplogging !== false): ?>
                 <td>
                     <?= $this->escape($value->remoteip) ?>
                 </td>
+                <?php endif ?>
                 <td>
                     <?= $this->escape($value->identity) ?>
                 </td>
