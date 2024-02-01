@@ -13,6 +13,7 @@ class AuditStream extends AuditHook
 {
     public function logMessage($time, $identity, $type, $message, array $data = null): void
     {
+        $logConfig = Config::module('audit')->getSection('log');
         $activityData = [
             'activity_time' => $time,
             'activity'      => $type,
@@ -20,6 +21,9 @@ class AuditStream extends AuditHook
             'identity'      => $identity,
             'remoteip'      => $remoteip
         ];
+        if ($logConfig->iplogging === false) {
+            unset($activityData['remoteip'])
+        }
         if (! empty($data)) {
             $activityData['data'] = $data;
         }

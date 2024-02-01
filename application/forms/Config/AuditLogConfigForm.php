@@ -96,6 +96,8 @@ class AuditLogConfigForm extends ConfigForm
                 'autosubmit'        => true,
                 'label'             => $this->translate('IP logging'),
                 'description'       => $this->translate('Log remote IPs into the audit log'),
+                'checkedValue'      => true,
+                'uncheckedValue'    => false
             ]
         );
     }
