@@ -4,11 +4,16 @@
 
 namespace Icinga\Module\Audit\Controllers;
 
+use DateTime;
 use Icinga\Data\ConfigObject;
 use Icinga\Protocol\File\FileReader;
-use Icinga\Web\Controller;
+use ipl\Html\Html;
+use ipl\Html\HtmlString;
+use ipl\Html\Table;
+use ipl\Web\Compat\CompatController;
+use ipl\Web\Widget\EmptyStateBar;
 
-class LogController extends Controller
+class LogController extends CompatController
 {
     public function indexAction(): void
     {
@@ -18,16 +23,12 @@ class LogController extends Controller
             $this->httpNotFound('Page not found');
         }
 
-        $this->getTabs()->add('audit/log', [
-            'active' => true,
-            'label'  => $this->translate('Audit Log'),
-            'url'    => 'audit/log',
-        ]);
+        $this->addTitleTab($this->translate('Audit Log'));
 
         $file = $this->Config()->get('log', 'path', '/var/log/icingaweb2/audit.log');
 
         if (! @file_exists($file)) {
-            $this->render('log-empty');
+            $this->addContent(new EmptyStateBar($this->translate('No activity has been recorded yet.')));
 
             return;
         }
@@ -43,9 +44,31 @@ class LogController extends Controller
                 . '(?!.)/msSU' // $ can't handle multilines, don't ...
         ]));
 
-        $this->view->logData = $resource->select()->order('DESC');
+        $query = $resource->select()->order('DESC');
+
+        $this->setupPaginationControl($query);
+        $this->addControl(HtmlString::create((string) $this->view->paginator));
 
         $this->setupLimitControl();
-        $this->setupPaginationControl($this->view->logData);
+        $this->addControl(Html::tag(
+            'div',
+            ['class' => 'sort-controls-container'],
+            HtmlString::create((string) $this->view->limiter)
+        ));
+
+        $table = new Table();
+        $table->addAttributes(['class' => 'action']);
+
+        /** @var object{datetime: string, type: string, identity: string, message: string} $row */
+        foreach ($query as $row) {
+            $time = new DateTime($row->datetime);
+            $table->add([
+                [$time->format('d.m. H:i'), Html::tag('br'), $row->type],
+                $row->identity,
+                nl2br(trim($row->message), false),
+            ]);
+        }
+
+        $this->addContent($table);
     }
 }

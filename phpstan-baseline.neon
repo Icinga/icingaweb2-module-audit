@@ -16,11 +16,6 @@ parameters:
 			path: library/Audit/ProvidedHook/AuditLog.php
 
 		-
-			message: "#^Parameter \\#1 \\$prefix of function openlog expects string, mixed given\\.$#"
-			count: 1
-			path: library/Audit/ProvidedHook/AuditLog.php
-
-		-
 			message: "#^Method Icinga\\\\Module\\\\Audit\\\\ProvidedHook\\\\AuditStream\\:\\:logMessage\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: library/Audit/ProvidedHook/AuditStream.php
