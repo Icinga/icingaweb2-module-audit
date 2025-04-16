@@ -1,0 +1,13 @@
+name: PHPStan
+
+on:
+  pull_request:
+
+jobs:
+  phpstan:
+    uses: icinga/github-actions/.github/workflows/phpstan.yml@main
+    with:
+      dependencies: |
+        {
+          "/icingaweb2" : "https://github.com/Icinga/icingaweb2.git"
+        }
