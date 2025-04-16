@@ -5,6 +5,7 @@
 namespace Icinga\Module\Audit\Controllers;
 
 use DateTime;
+use DateTimeZone;
 use Icinga\Data\ConfigObject;
 use Icinga\Protocol\File\FileReader;
 use ipl\Html\Html;
@@ -62,6 +63,7 @@ class LogController extends CompatController
         /** @var object{datetime: string, type: string, identity: string, message: string} $row */
         foreach ($query as $row) {
             $time = new DateTime($row->datetime);
+            $time->setTimezone(new DateTimeZone(date_default_timezone_get()));
             $table->add([
                 [$time->format('d.m. H:i'), Html::tag('br'), $row->type],
                 $row->identity,
