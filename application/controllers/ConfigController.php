@@ -13,6 +13,8 @@ class ConfigController extends CompatController
 {
     public function init()
     {
+        $this->assertPermission('config/modules');
+
         foreach ($this->Module()->getConfigTabs()->getTabs() as $tab) {
             $this->tabs->add($tab->getName(), $tab);
         }
