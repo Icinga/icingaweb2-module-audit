@@ -11,7 +11,7 @@ use Icinga\Util\File;
 
 class AuditLog extends AuditHook
 {
-    public function logMessage($time, $identity, $type, $message, array $data = null): void
+    public function logMessage($time, $identity, $type, $message, ?array $data = null): void
     {
         $logConfig = Config::module('audit')->getSection('log');
         if ($logConfig->type === 'file') {
